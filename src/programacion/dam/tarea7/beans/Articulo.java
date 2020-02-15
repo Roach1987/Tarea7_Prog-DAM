@@ -12,9 +12,9 @@ public class Articulo implements Serializable{
     // Atributos
     private String codArticulo;
     private String descripcion;
-    private double precio;
-    private double descuento;
-    private int iva;
+    private Double precio;
+    private Double descuento;
+    private Integer iva;
     private ArrayList<FamiliaArticulo> listaFamiliaArticulo;
     
     // Constructores
@@ -22,7 +22,7 @@ public class Articulo implements Serializable{
         listaFamiliaArticulo = new ArrayList<>();
     }
     
-    public Articulo(String codArticulo, String descripcion, double precio, double descuento, int iva,
+    public Articulo(String codArticulo, String descripcion, Double precio, Double descuento, Integer iva,
             ArrayList<FamiliaArticulo> listaFamiliaArticulo){
         this.codArticulo = codArticulo;
         this.descripcion = descripcion;
@@ -49,27 +49,27 @@ public class Articulo implements Serializable{
         this.descripcion = descripcion;
     }
 
-    public double getPrecio() {
+    public Double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(double precio) {
+    public void setPrecio(Double precio) {
         this.precio = precio;
     }
 
-    public double getDescuento() {
+    public Double getDescuento() {
         return descuento;
     }
 
-    public void setDescuento(double descuento) {
+    public void setDescuento(Double descuento) {
         this.descuento = descuento;
     }
 
-    public int getIva() {
+    public Integer getIva() {
         return iva;
     }
 
-    public void setIva(int iva) {
+    public void setIva(Integer iva) {
         this.iva = iva;
     }
 
