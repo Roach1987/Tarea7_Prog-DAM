@@ -23,7 +23,8 @@ En concreto las lista de requisitos mínimos de la aplicación es:
 	* Archivo. Donde estarán las opciones de abrir y guardar los artículos.
 
 	* Alta. Dispondrá de las opciones de menú para dar de alta productos y familias de productos,
-		que se guardarán en memoria, hasta que se seleccione la opción en el menú de archivo para guardarlos a disco.
+		que se guardarán en memoria, hasta que se seleccione la opción en el menú de archivo para 
+		guardarlos a disco.
 
 	* Datos. Dispondrá de las opciones para mostrar los datos de los artículos y de la familia asociada, 
 		cargados en memoria, permitiendo su edición, a modo de ficha, o su eliminación. Si se elimina, 
