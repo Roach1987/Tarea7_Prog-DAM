@@ -1,5 +1,10 @@
 package programacion.dam.tarea7.util;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -136,13 +141,85 @@ public class Util implements Serializable{
     }
             
     /**
-     * Método que devuelve la lista de articulos.
+     * Método que devuelve la lista de articulos temporales.
      * @return listaArticulos
      */
     public static ArrayList<Articulo> listarArticulosTemporal(){
         // READ
         return listaArticulosTemporal;
     }
+    
+
+    
+// *******************************************************************************************************
+// *******************************************************************************************************
+    
+// *******************************************************************************************************    
+// ********************************** CRUD fichero Articulos *********************************************
+// *******************************************************************************************************
+    
+    public static void addArticuloFichero(){
+        // UPDATE
+        try {
+            // Intentamos crear el fichero y su objeto dentro de un try pasando por parametro 
+            // estos dos Streams sin catch, si falla por estar vacio no lanzara ninguna excepcion y añadira
+            // el cliente con el objeto ObjectOutputStream
+            // "try con autocierre de Streams"
+            try (
+                // lee la informacion del archivo.
+                FileInputStream ficheroEntrada = new FileInputStream(ARCHIVO_ARTICULOS);
+                    
+                // traduce la infromacion del archivo en datos
+                ObjectInputStream objetoEntrada = new ObjectInputStream(ficheroEntrada) 
+            ) {
+                // lee todos los objetos que esten en el array
+                listaArticulos = (ArrayList<Articulo>) objetoEntrada.readObject();
+            }
+        } catch (IOException | ClassNotFoundException ex) {
+            System.out.println("El fichero esta vacío");
+        }
+
+        // Introduce en el array los datos del nuevo cliente
+        listaArticulos.addAll(listaArticulosTemporal);
+
+        ObjectOutputStream objetoSalida;
+        // Se crea el flujo para poder escribir en "articulos.dat"
+        try (FileOutputStream ficheroSalida = new FileOutputStream(ARCHIVO_ARTICULOS)) {
+            
+            // prepara la forma de escritura para "clientes.dat" que en este caso sera escribir un objeto
+            objetoSalida = new ObjectOutputStream(ficheroSalida);
+            
+            // Escribe en el archivo el Array de objetos "objetoArrayCliente"
+            objetoSalida.writeObject(listaArticulos);
+            
+            // Cerramos el objeto de salida.
+            objetoSalida.close();
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Error en el fichero ".concat(ex.getMessage()),
+                    "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public static void borrarArticuloFichero(){
+        // DELETE
+    }
+    
+    /**
+     * Método que lista los articulos que posee el fichero.
+     * @return listaArticulos
+     */
+    public static ArrayList<Articulo> listarArticulosFichero(){
+        // READ
+        return listaArticulos;        
+    }
+
+// *******************************************************************************************************
+// *******************************************************************************************************    
+    
+
+// *******************************************************************************************************    
+// ****************************************** Utilidades *************************************************
+// *******************************************************************************************************
     
     /**
      * Método utilitario que busca en la lista llegada por parametro, y devuelve el coincidente con el codigo
@@ -164,11 +241,5 @@ public class Util implements Serializable{
     }
     
 // *******************************************************************************************************
-// *******************************************************************************************************
-    
 // *******************************************************************************************************    
-// ********************************** CRUD fichero Articulos *********************************************
-    
-    
-// *******************************************************************************************************
 }
