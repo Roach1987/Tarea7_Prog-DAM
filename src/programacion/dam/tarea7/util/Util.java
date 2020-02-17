@@ -13,8 +13,12 @@ import programacion.dam.tarea7.beans.FamiliaArticulo;
 public class Util implements Serializable{
     // Pasar a clase principal del menu
     public static final String ARCHIVO_ARTICULOS = "articulos.dat";
+    
+    // Lista auxiliar tratamiento de objetos del fichero.
     private static ArrayList<Articulo> listaArticulos = new ArrayList<Articulo>();
-//    private static ArrayList<Articulo> listaArticulosTemporal = new ArrayList<Articulo>();
+    
+    // Lista auxiliar tratamiento articulos temporales.
+    private static ArrayList<Articulo> listaArticulosTemporal = new ArrayList<Articulo>();
     
 // *******************************************************************************************************    
 // *********************************** CRUD Lista Articulos **********************************************
@@ -25,13 +29,13 @@ public class Util implements Serializable{
      */
     public static void crearArticuloEnLista(Articulo articulo){
         // CREATE
-        if(null != articulo && (null != listaArticulos && !listaArticulos.isEmpty())){
+        if(null != articulo && (null != listaArticulosTemporal && !listaArticulosTemporal.isEmpty())){
             if(null != articulo.getCodArticulo()){
                 String codigoArticuloBuscar = articulo.getCodArticulo(); 
-                Articulo articuloEncontrado = buscarArticuloPorCodigo(codigoArticuloBuscar);
+                Articulo articuloEncontrado = buscarArticuloPorCodigo(codigoArticuloBuscar, listaArticulosTemporal);
                 
                 if(null == articuloEncontrado){
-                    listaArticulos.add(articulo);
+                    listaArticulosTemporal.add(articulo);
                 }else{
                     JOptionPane.showMessageDialog(null, "Ya existe un articulo con el codigo ".concat(codigoArticuloBuscar),
                     "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
@@ -46,13 +50,13 @@ public class Util implements Serializable{
      */
     public static void borrarArticuloDeLista(String codigoArticulo){
         // DELETE
-        if(null != codigoArticulo && (null != listaArticulos && !listaArticulos.isEmpty())){
-            Articulo articuloEncontrado = buscarArticuloPorCodigo(codigoArticulo);
+        if(null != codigoArticulo && (null != listaArticulosTemporal && !listaArticulosTemporal.isEmpty())){
+            Articulo articuloEncontrado = buscarArticuloPorCodigo(codigoArticulo, listaArticulosTemporal);
             
             // Si existe un articulo con el mismo codigo que el articulo llegado por parametro
             // se elimina de la lista.
             if(null != articuloEncontrado){
-                listaArticulos.remove(articuloEncontrado);
+                listaArticulosTemporal.remove(articuloEncontrado);
             }else{
                 JOptionPane.showMessageDialog(null, "No existe un articulo con codigo ".concat(codigoArticulo),
                 "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
@@ -67,10 +71,10 @@ public class Util implements Serializable{
      */
     public static void actualizarArticuloEnLista(Articulo articulo){
         // UPDATE
-        if(null != articulo && (null != listaArticulos && !listaArticulos.isEmpty())){
+        if(null != articulo && (null != listaArticulosTemporal && !listaArticulosTemporal.isEmpty())){
             if(null != articulo.getCodArticulo()){
                 String codigoArticuloBuscar = articulo.getCodArticulo();
-                Articulo articuloEncontrado = buscarArticuloPorCodigo(codigoArticuloBuscar);
+                Articulo articuloEncontrado = buscarArticuloPorCodigo(codigoArticuloBuscar, listaArticulosTemporal);
             
                 if(null != articuloEncontrado){
                     // Si existe un articulo con el mismo codigo que el articulo llegado por parametro
@@ -124,7 +128,7 @@ public class Util implements Serializable{
                     "ERROR", JOptionPane.ERROR_MESSAGE); 
             }
             
-            if(null == listaArticulos || listaArticulos.isEmpty()){
+            if(null == listaArticulosTemporal || listaArticulosTemporal.isEmpty()){
                 JOptionPane.showMessageDialog(null, "La lista esta vacia, no se puede actualizar.",
                     "ERROR", JOptionPane.ERROR_MESSAGE);
             }
@@ -135,21 +139,22 @@ public class Util implements Serializable{
      * Método que devuelve la lista de articulos.
      * @return listaArticulos
      */
-    public static ArrayList<Articulo> listarArticulos(){
+    public static ArrayList<Articulo> listarArticulosTemporal(){
         // READ
-        return listaArticulos;
+        return listaArticulosTemporal;
     }
     
     /**
-     * Método que busca en la lista de articulos, y devuelve el coincidente con el codigo
+     * Método utilitario que busca en la lista llegada por parametro, y devuelve el coincidente con el codigo
      * llegado por parametro.
      * @param codigoArticulo
+     * @param lista
      * @return 
      */
-    public static Articulo buscarArticuloPorCodigo(String codigoArticulo){
+    public static Articulo buscarArticuloPorCodigo(String codigoArticulo, ArrayList<Articulo> lista){
         // SEARCH
         Articulo respuesta = null;
-        for(Articulo articulo : listaArticulos){
+        for(Articulo articulo : lista){
             if(articulo.getCodArticulo().equals(codigoArticulo)){
                 respuesta = articulo;
                 break;
