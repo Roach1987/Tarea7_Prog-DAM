@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import programacion.dam.tarea7.beans.Articulo;
-import programacion.dam.tarea7.beans.FamiliaArticulo;
+
 
 /**
  *
@@ -101,24 +101,8 @@ public class Util implements Serializable{
                     }
 
                     if(null != articulo.getListaFamiliaArticulo() && !articulo.getListaFamiliaArticulo().isEmpty()){
-                        ArrayList<FamiliaArticulo> listaFamilia = new ArrayList<>();
-                        // Añadimos las familias que ya estaban en el articulo
-                        articuloEncontrado.getListaFamiliaArticulo().forEach((familia) -> {
-                            listaFamilia.add(familia);
-                        });
-                        // Eliminamos las familias que ya estaban disponibles en el articulo.
-                        articuloEncontrado.getListaFamiliaArticulo().forEach((familia) -> {
-                            articuloEncontrado.getListaFamiliaArticulo().remove(familia);
-                        });
-                        // Añadimos las familias que lleguen en el nuevo articulo.
-                        articulo.getListaFamiliaArticulo().forEach((familia) -> {
-                            listaFamilia.add(familia);
-                        });
-                        // Añadimos la lista resultante al articulo que se va a modificar
-                        articuloEncontrado.setListaFamiliaArticulo(listaFamilia);
+                        articuloEncontrado.setListaFamiliaArticulo(articulo.getListaFamiliaArticulo());
                     }
-                    borrarArticuloDeLista(codigoArticuloBuscar);
-                    crearArticuloEnLista(articuloEncontrado);
                 }else{
                     JOptionPane.showMessageDialog(null, "No existe un articulo con codigo ".concat(codigoArticuloBuscar),
                     "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
@@ -148,9 +132,7 @@ public class Util implements Serializable{
         // READ
         return listaArticulosTemporal;
     }
-    
-
-    
+     
 // *******************************************************************************************************
 // *******************************************************************************************************
     
@@ -158,12 +140,15 @@ public class Util implements Serializable{
 // ********************************** CRUD fichero Articulos *********************************************
 // *******************************************************************************************************
     
+    /**
+     * Método que añade los articulos que se encuentran el la lista temporal.
+     */
     public static void addArticuloFichero(){
         // UPDATE
         try {
             // Intentamos crear el fichero y su objeto dentro de un try pasando por parametro 
             // estos dos Streams sin catch, si falla por estar vacio no lanzara ninguna excepcion y añadira
-            // el cliente con el objeto ObjectOutputStream
+            // los articulos con el objeto ObjectOutputStream
             // "try con autocierre de Streams"
             try (
                 // lee la informacion del archivo.
@@ -179,17 +164,17 @@ public class Util implements Serializable{
             System.out.println("El fichero esta vacío");
         }
 
-        // Introduce en el array los datos del nuevo cliente
+        // Introduce en el array los datos de los nuevos articulos
         listaArticulos.addAll(listaArticulosTemporal);
 
         ObjectOutputStream objetoSalida;
         // Se crea el flujo para poder escribir en "articulos.dat"
         try (FileOutputStream ficheroSalida = new FileOutputStream(ARCHIVO_ARTICULOS)) {
             
-            // prepara la forma de escritura para "clientes.dat" que en este caso sera escribir un objeto
+            // prepara la forma de escritura para "articulos.dat" que en este caso sera escribir un objeto
             objetoSalida = new ObjectOutputStream(ficheroSalida);
             
-            // Escribe en el archivo el Array de objetos "objetoArrayCliente"
+            // Escribe en el archivo el Array de objetos "listaArticulos"
             objetoSalida.writeObject(listaArticulos);
             
             // Cerramos el objeto de salida.
@@ -198,10 +183,35 @@ public class Util implements Serializable{
             JOptionPane.showMessageDialog(null, "Error en el fichero ".concat(ex.getMessage()),
                     "ERROR", JOptionPane.ERROR_MESSAGE);
         }
+        
+        // Limpiamos la lista temporal.
+        listaArticulosTemporal.clear();
     }
     
-    public static void borrarArticuloFichero(){
+    /**
+     * Método que elimina un articulo del fichero, si este existe.
+     * @param codigoArticulo 
+     */
+    public static void borrarArticuloFichero(String codigoArticulo){
         // DELETE
+        listaArticulos = listarArticulosFichero();
+        Articulo articuloBorrar = buscarArticuloPorCodigo(codigoArticulo, listaArticulos);
+       
+        // Borramos el articulo de la lista si este existe.
+        if(null != articuloBorrar){
+            listaArticulos.remove(articuloBorrar);
+        }
+        
+        try{
+            ObjectOutputStream objetoSalida;
+            try (FileOutputStream ficheroSalida = new FileOutputStream(ARCHIVO_ARTICULOS);) {
+                objetoSalida = new ObjectOutputStream(ficheroSalida);
+                objetoSalida.writeObject(listaArticulos);
+            }
+            objetoSalida.close();
+        }catch(IOException ex){
+            System.out.println("*** Error en fichero " + ex.getMessage() + " ***");
+        }
     }
     
     /**
@@ -210,7 +220,20 @@ public class Util implements Serializable{
      */
     public static ArrayList<Articulo> listarArticulosFichero(){
         // READ
-        return listaArticulos;        
+        try {
+            // lee la informacion del archivo
+            FileInputStream ficheroEntrada = new FileInputStream(ARCHIVO_ARTICULOS);
+            
+            // traduce la informacion del archivo en datos
+            ObjectInputStream objetoEntrada = new ObjectInputStream(ficheroEntrada);    
+            
+            // lee todos los objetos que esten en el array
+            listaArticulos = (ArrayList<Articulo>) objetoEntrada.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "El fichero esta vacío.",
+                    "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        return listaArticulos;
     }
 
 // *******************************************************************************************************
