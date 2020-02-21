@@ -9,12 +9,12 @@ package programacion.dam.tarea7.menu;
  *
  * @author Roach_Mimi
  */
-public class Alta extends javax.swing.JFrame {
+public class DatosFichero extends javax.swing.JFrame {
 
     /**
      * Creates new form Datos
      */
-    public Alta() {
+    public DatosFichero() {
         initComponents();
     }
 
@@ -37,8 +37,6 @@ public class Alta extends javax.swing.JFrame {
         BModificar = new javax.swing.JButton();
         BBorrar = new javax.swing.JButton();
         BVolver = new javax.swing.JButton();
-        BNuevoArticulo = new javax.swing.JButton();
-        BGuardarEnFichero = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -99,6 +97,11 @@ public class Alta extends javax.swing.JFrame {
         BModificar.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         BModificar.setText("Modificar");
         BModificar.setToolTipText("");
+        BModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BModificarActionPerformed(evt);
+            }
+        });
 
         BBorrar.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         BBorrar.setText("Borrar");
@@ -109,45 +112,29 @@ public class Alta extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(128, 128, 128)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(BModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(BBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(127, 127, 127))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addGap(36, 36, 36)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         BVolver.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         BVolver.setText("Volver");
-
-        BNuevoArticulo.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        BNuevoArticulo.setText("Nuevo articulo");
-        BNuevoArticulo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BNuevoArticuloActionPerformed(evt);
-            }
-        });
-
-        BGuardarEnFichero.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        BGuardarEnFichero.setText("Guardar en Fichero");
-        BGuardarEnFichero.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BGuardarEnFicheroActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -158,12 +145,6 @@ public class Alta extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(51, 51, 51)
-                        .addComponent(BNuevoArticulo, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(44, 44, 44)
-                        .addComponent(BGuardarEnFichero, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(BVolver)))
@@ -174,13 +155,9 @@ public class Alta extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BGuardarEnFichero, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BNuevoArticulo, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
+                .addGap(50, 50, 50)
                 .addComponent(BVolver)
                 .addContainerGap())
         );
@@ -192,22 +169,16 @@ public class Alta extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_TCodigoBuscarActionPerformed
 
-    private void BNuevoArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BNuevoArticuloActionPerformed
+    private void BModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BModificarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_BNuevoArticuloActionPerformed
-
-    private void BGuardarEnFicheroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BGuardarEnFicheroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BGuardarEnFicheroActionPerformed
+    }//GEN-LAST:event_BModificarActionPerformed
 
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BBorrar;
     private javax.swing.JButton BBuscar;
-    private javax.swing.JButton BGuardarEnFichero;
     private javax.swing.JButton BModificar;
-    private javax.swing.JButton BNuevoArticulo;
     private javax.swing.JButton BVolver;
     private javax.swing.JTextField TCodigoBuscar;
     private javax.swing.JTable TablaArticulos;
