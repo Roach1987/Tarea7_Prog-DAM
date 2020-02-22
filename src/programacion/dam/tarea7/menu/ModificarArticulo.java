@@ -5,17 +5,34 @@
  */
 package programacion.dam.tarea7.menu;
 
+import javax.swing.table.DefaultTableModel;
+import programacion.dam.tarea7.beans.Articulo;
+
 /**
  *
- * @author Roach_Mimi
+ * @author Roach
  */
 public class ModificarArticulo extends javax.swing.JFrame {
 
-    /**
-     * Creates new form AltaArticulos
-     */
-    public ModificarArticulo() {
+
+    // Constantes de clase
+    private static final String LISTA_TEMPORAL = "Temporal";
+    private static final String LISTA_FICHERO = "Fichero";
+    
+    // Atributos
+    private DefaultTableModel modelo;
+    private Articulo articulo;
+    private Alta ventanaAlta;
+
+    
+    // Constructores
+    public ModificarArticulo(Alta ventanaAlta) {
         initComponents();
+        
+        // Falta codigo continuar aqui ********************************
+        
+        
+        this.ventanaAlta = ventanaAlta;
     }
 
     /**

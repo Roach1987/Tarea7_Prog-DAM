@@ -5,18 +5,35 @@
  */
 package programacion.dam.tarea7.menu;
 
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import programacion.dam.tarea7.beans.Articulo;
+import programacion.dam.tarea7.util.Util;
+
 /**
  *
- * @author Roach_Mimi
+ * @author Roach
  */
 public class Alta extends javax.swing.JFrame {
-
-    /**
-     * Creates new form Datos
-     */
+    
+    // Atributos
+    private DefaultTableModel modelo;
+    
+    // Constructores
     public Alta() {
         initComponents();
+        
+        // Pintamos los atributos mas importantes de los articulos.
+        String[] columnas = {"Codigo", "Descripción", "Precio", "Descuento", "IVA"};
+        modelo = new DefaultTableModel(null, columnas);
+        
+        tablaArticulos.setModel(modelo);
+        
+        // Cargamos la lista de articulos temporal.
+        this.cargarListaTemporal();
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -29,16 +46,17 @@ public class Alta extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        TCodigoBuscar = new javax.swing.JTextField();
-        BBuscar = new javax.swing.JButton();
+        tCodigoBuscar = new javax.swing.JTextField();
+        bBuscar = new javax.swing.JButton();
+        bVerLista = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        TablaArticulos = new javax.swing.JTable();
-        BModificar = new javax.swing.JButton();
-        BBorrar = new javax.swing.JButton();
-        BGuardarEnFichero = new javax.swing.JButton();
-        BVolver = new javax.swing.JButton();
-        BNuevoArticulo = new javax.swing.JButton();
+        tablaArticulos = new javax.swing.JTable();
+        bModificar = new javax.swing.JButton();
+        bBorrar = new javax.swing.JButton();
+        bGuardarEnFichero = new javax.swing.JButton();
+        bVolver = new javax.swing.JButton();
+        bNuevoArticulo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -48,14 +66,27 @@ public class Alta extends javax.swing.JFrame {
         jLabel1.setText("Codigo Articulo");
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        TCodigoBuscar.addActionListener(new java.awt.event.ActionListener() {
+        tCodigoBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TCodigoBuscarActionPerformed(evt);
+                tCodigoBuscarActionPerformed(evt);
             }
         });
 
-        BBuscar.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        BBuscar.setText("Buscar");
+        bBuscar.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        bBuscar.setText("Buscar");
+        bBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bBuscarActionPerformed(evt);
+            }
+        });
+
+        bVerLista.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        bVerLista.setText("Lista Completa");
+        bVerLista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bVerListaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -65,10 +96,14 @@ public class Alta extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addComponent(jLabel1)
                 .addGap(29, 29, 29)
-                .addComponent(TCodigoBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tCodigoBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
-                .addComponent(BBuscar)
+                .addComponent(bBuscar)
                 .addGap(108, 108, 108))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(bVerLista)
+                .addGap(211, 211, 211))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -76,14 +111,16 @@ public class Alta extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TCodigoBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BBuscar))
-                .addContainerGap(19, Short.MAX_VALUE))
+                    .addComponent(tCodigoBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bBuscar))
+                .addGap(18, 18, 18)
+                .addComponent(bVerLista)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.MatteBorder(null), "ARTICULOS", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Black", 0, 14))); // NOI18N
 
-        TablaArticulos.setModel(new javax.swing.table.DefaultTableModel(
+        tablaArticulos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -94,20 +131,25 @@ public class Alta extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(TablaArticulos);
+        jScrollPane1.setViewportView(tablaArticulos);
 
-        BModificar.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        BModificar.setText("Modificar");
-        BModificar.setToolTipText("");
+        bModificar.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        bModificar.setText("Modificar");
+        bModificar.setToolTipText("");
 
-        BBorrar.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        BBorrar.setText("Borrar");
-
-        BGuardarEnFichero.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        BGuardarEnFichero.setText("Guardar en Fichero");
-        BGuardarEnFichero.addActionListener(new java.awt.event.ActionListener() {
+        bBorrar.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        bBorrar.setText("Borrar");
+        bBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BGuardarEnFicheroActionPerformed(evt);
+                bBorrarActionPerformed(evt);
+            }
+        });
+
+        bGuardarEnFichero.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        bGuardarEnFichero.setText("Guardar en Fichero");
+        bGuardarEnFichero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bGuardarEnFicheroActionPerformed(evt);
             }
         });
 
@@ -122,11 +164,11 @@ public class Alta extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(BModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(bModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(BGuardarEnFichero)
+                        .addComponent(bGuardarEnFichero)
                         .addGap(35, 35, 35)
-                        .addComponent(BBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(bBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -136,25 +178,25 @@ public class Alta extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BGuardarEnFichero, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(bModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bGuardarEnFichero, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(74, Short.MAX_VALUE))
         );
 
-        BVolver.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        BVolver.setText("Volver");
-        BVolver.addActionListener(new java.awt.event.ActionListener() {
+        bVolver.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        bVolver.setText("Volver");
+        bVolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BVolverActionPerformed(evt);
+                bVolverActionPerformed(evt);
             }
         });
 
-        BNuevoArticulo.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        BNuevoArticulo.setText("Nuevo articulo");
-        BNuevoArticulo.addActionListener(new java.awt.event.ActionListener() {
+        bNuevoArticulo.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        bNuevoArticulo.setText("Nuevo articulo");
+        bNuevoArticulo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BNuevoArticuloActionPerformed(evt);
+                bNuevoArticuloActionPerformed(evt);
             }
         });
 
@@ -169,33 +211,33 @@ public class Alta extends javax.swing.JFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(BVolver)))
+                        .addComponent(bVolver)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(204, 204, 204)
-                .addComponent(BNuevoArticulo, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(bNuevoArticulo, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(33, 33, 33)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
-                .addComponent(BNuevoArticulo, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(bNuevoArticulo, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(BVolver)
+                .addComponent(bVolver)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void TCodigoBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TCodigoBuscarActionPerformed
+    private void tCodigoBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tCodigoBuscarActionPerformed
 
-    }//GEN-LAST:event_TCodigoBuscarActionPerformed
+    }//GEN-LAST:event_tCodigoBuscarActionPerformed
 
     
     /**
@@ -203,39 +245,143 @@ public class Alta extends javax.swing.JFrame {
      * para dar de alta un nuevo articulo
      * @param evt 
      */
-    private void BNuevoArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BNuevoArticuloActionPerformed
+    private void bNuevoArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bNuevoArticuloActionPerformed
         // Creamos una nueva ventana AltaArticulo.
-        AltaArticulo altaNuevoArticulo = new AltaArticulo();
+        AltaArticulo altaNuevoArticulo = new AltaArticulo(this);
         altaNuevoArticulo.setVisible(true);
-    }//GEN-LAST:event_BNuevoArticuloActionPerformed
+    }//GEN-LAST:event_bNuevoArticuloActionPerformed
 
-    private void BGuardarEnFicheroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BGuardarEnFicheroActionPerformed
     
-    }//GEN-LAST:event_BGuardarEnFicheroActionPerformed
+    
+    
+    private void bGuardarEnFicheroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarEnFicheroActionPerformed
+    
+    }//GEN-LAST:event_bGuardarEnFicheroActionPerformed
 
     /**
      * Acción del botón volver, con el que cerraremos la ventana Alta
      * @param evt 
      */
-    private void BVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BVolverActionPerformed
+    private void bVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVolverActionPerformed
         // Con this.dispose() cerramos la ventana actual y la dejamos limpia.
         this.dispose();
-    }//GEN-LAST:event_BVolverActionPerformed
+    }//GEN-LAST:event_bVolverActionPerformed
 
+    
+    /**
+     * Acción de borrar un articulo de la lista temporal.
+     * @param evt 
+     */
+    private void bBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBorrarActionPerformed
+        // Verificamos que se ha seleccionado un articulo para borrarlo de la lista temporal
+        // y la tabla.
+        if(tablaArticulos.getSelectedRow() == -1){
+            JOptionPane.showMessageDialog(null, "Debe de seleccionar un articulo para borrar",
+                "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        // Recogemos el codigo del articulo seleccionado.
+        String codigoAuxiliar = tablaArticulos.getValueAt(tablaArticulos.getSelectedRow(), 0).toString().trim();
+                
+        // Borramos de la tabla
+        modelo.removeRow(tablaArticulos.getSelectedRow());
+                
+        // Borramos de la lista temporal.
+        Util.borrarArticuloDeLista(codigoAuxiliar);
+    }//GEN-LAST:event_bBorrarActionPerformed
 
+    
+    
+    /**
+     * Acción de buscar un articulo por su codigo
+     * @param evt 
+     */
+    private void bBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarActionPerformed
+
+        if(tCodigoBuscar.getText().trim().length() == 0){
+            JOptionPane.showMessageDialog(null, "Debe de insertar el codigo del articulo a buscar.",
+                "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+               
+        String codigoAux = tCodigoBuscar.getText().trim();
+        
+        // Buscamos el articulo en la lista temporal
+        Articulo articulo = Util.buscarArticuloPorCodigo(codigoAux, Util.listaArticulosTemporal);
+        
+        if(null == articulo){
+            JOptionPane.showMessageDialog(null, "El codigo introducido no corresponde a ningun articulo.",
+                "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
+        }else{
+            // Borramos los articulos que estuviesen en la tabla.
+            borrarTabla();
+            
+            String [] fila = {articulo.getCodArticulo(), articulo.getDescripcion(), articulo.getPrecio().toString().concat(" Euros"),
+                                    articulo.getDescuento().toString().concat(" Euros"), articulo.getIva().toString().concat("%")};
+            modelo.addRow(fila);
+        }
+    }//GEN-LAST:event_bBuscarActionPerformed
+
+    
+    /**
+     * Acción que mostrara toda la lista temporal.
+     * Para evitar que se quede solo un articulo cuando se utiliza la opción
+     * de buscar por codigo de articulo
+     * @param evt 
+     */
+    private void bVerListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVerListaActionPerformed
+        borrarTabla();   
+        cargarListaTemporal();       
+    }//GEN-LAST:event_bVerListaActionPerformed
+
+// ***************************************************************************************************
+// ************************************ Utilidades de la Clase ***************************************
+// ***************************************************************************************************
+    
+    /**
+     * Método auxiliar que limpia la tabla.
+     */
+    private void borrarTabla(){
+        int longitud = tablaArticulos.getRowCount()-1;  
+        for(int i = longitud; i >= 0; i--){
+            modelo.removeRow(i);
+        }
+    }
+    
+    /**
+     * Método que carga los articulos que se encuentran en la lista temporal,
+     * y recoge los datos mas importantes para cargarlos en la tabla.
+     */
+    public void cargarListaTemporal(){
+        // Liampiamos la tabla al cargar nuevos articulos, para evitar duplicidades.
+        borrarTabla();
+        
+        ArrayList<Articulo> listaTemporal = Util.listarArticulosTemporal();
+        
+        for(Articulo articulo : listaTemporal){
+            // Creamos un array para recoger los datos necesarios de cada articulo.
+           String [] fila = {articulo.getCodArticulo(), articulo.getDescripcion(), articulo.getPrecio().toString().concat(" Euros"),
+                                    articulo.getDescuento().toString().concat(" Euros"), articulo.getIva().toString().concat("%")};
+            
+            // Añadimos a la tabla los datos del articulo actual.
+            modelo.addRow(fila);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BBorrar;
-    private javax.swing.JButton BBuscar;
-    private javax.swing.JButton BGuardarEnFichero;
-    private javax.swing.JButton BModificar;
-    private javax.swing.JButton BNuevoArticulo;
-    private javax.swing.JButton BVolver;
-    private javax.swing.JTextField TCodigoBuscar;
-    private javax.swing.JTable TablaArticulos;
+    private javax.swing.JButton bBorrar;
+    private javax.swing.JButton bBuscar;
+    private javax.swing.JButton bGuardarEnFichero;
+    private javax.swing.JButton bModificar;
+    private javax.swing.JButton bNuevoArticulo;
+    private javax.swing.JButton bVerLista;
+    private javax.swing.JButton bVolver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField tCodigoBuscar;
+    private javax.swing.JTable tablaArticulos;
     // End of variables declaration//GEN-END:variables
 }

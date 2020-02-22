@@ -19,11 +19,11 @@ public class Util implements Serializable{
     // Pasar a clase principal del menu
     public static final String ARCHIVO_ARTICULOS = "articulos.dat";
     
-    // Lista auxiliar tratamiento de objetos del fichero.
-    private static ArrayList<Articulo> listaArticulos = new ArrayList<Articulo>();
+    // Lista auxiliar tratamiento de objetos del fichero. (Tiene que ser publicos para acceder desde las ventanas)
+    public static ArrayList<Articulo> listaArticulos = new ArrayList<Articulo>();
     
-    // Lista auxiliar tratamiento articulos temporales.
-    private static ArrayList<Articulo> listaArticulosTemporal = new ArrayList<Articulo>();
+    // Lista auxiliar tratamiento articulos temporales. (Tiene que ser publicos para acceder desde las ventanas)
+    public static ArrayList<Articulo> listaArticulosTemporal = new ArrayList<Articulo>();
     
 // *******************************************************************************************************    
 // *********************************** CRUD Lista Articulos **********************************************
