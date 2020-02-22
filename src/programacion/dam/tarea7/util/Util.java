@@ -34,7 +34,7 @@ public class Util implements Serializable{
      */
     public static void crearArticuloEnLista(Articulo articulo){
         // CREATE
-        if(null != articulo && (null != listaArticulosTemporal && !listaArticulosTemporal.isEmpty())){
+        if(null != articulo){
             if(null != articulo.getCodArticulo()){
                 String codigoArticuloBuscar = articulo.getCodArticulo(); 
                 Articulo articuloEncontrado = buscarArticuloPorCodigo(codigoArticuloBuscar, listaArticulosTemporal);

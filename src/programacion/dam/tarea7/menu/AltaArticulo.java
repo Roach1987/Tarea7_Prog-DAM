@@ -5,19 +5,36 @@
  */
 package programacion.dam.tarea7.menu;
 
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import programacion.dam.tarea7.beans.Articulo;
+import programacion.dam.tarea7.beans.FamiliaArticulo;
+import programacion.dam.tarea7.util.Util;
+
 /**
  *
  * @author Roach_Mimi
  */
 public class AltaArticulo extends javax.swing.JFrame {
 
-    /**
-     * Creates new form AltaArticulos
-     */
+ 
+    // Atributos
+    private DefaultTableModel modelo;
+    private Articulo articulo;
+
+    // Constructor
     public AltaArticulo() {
         initComponents();
+        
+        String[] columna = {"Familia"};
+        modelo = new DefaultTableModel(null,columna);
+        
+        tablaFamilias.setModel(modelo);
+        articulo = new Articulo();
     }
-
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,24 +47,26 @@ public class AltaArticulo extends javax.swing.JFrame {
         GrupoRButtonIva = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        TCodigoArticulo = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        TDescripcion = new javax.swing.JTextField();
+        tDescripcion = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        TPrecio = new javax.swing.JTextField();
+        tPrecio = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        RButton4 = new javax.swing.JRadioButton();
-        RButton10 = new javax.swing.JRadioButton();
-        RButton21 = new javax.swing.JRadioButton();
+        rButton4 = new javax.swing.JRadioButton();
+        rButton10 = new javax.swing.JRadioButton();
+        rButton21 = new javax.swing.JRadioButton();
+        jLabel6 = new javax.swing.JLabel();
+        tDescuento = new javax.swing.JTextField();
+        tCodigoArticulo = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
+        tNombreFamilia = new javax.swing.JTextField();
+        bAnadirFamilia = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        tablaFamilias = new javax.swing.JTable();
+        bGuardar = new javax.swing.JButton();
+        bVolver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -65,17 +84,20 @@ public class AltaArticulo extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jLabel4.setText("IVA");
 
-        GrupoRButtonIva.add(RButton4);
-        RButton4.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        RButton4.setText("4%");
+        GrupoRButtonIva.add(rButton4);
+        rButton4.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        rButton4.setText("4%");
 
-        GrupoRButtonIva.add(RButton10);
-        RButton10.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        RButton10.setText("10%");
+        GrupoRButtonIva.add(rButton10);
+        rButton10.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        rButton10.setText("10%");
 
-        GrupoRButtonIva.add(RButton21);
-        RButton21.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        RButton21.setText("21%");
+        GrupoRButtonIva.add(rButton21);
+        rButton21.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        rButton21.setText("21%");
+
+        jLabel6.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jLabel6.setText("Descuento");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -88,43 +110,48 @@ public class AltaArticulo extends javax.swing.JFrame {
                         .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE))
-                    .addComponent(jLabel4))
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel6))
                 .addGap(27, 27, 27)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(RButton4)
+                        .addComponent(rButton4)
                         .addGap(18, 18, 18)
-                        .addComponent(RButton10)
+                        .addComponent(rButton10)
                         .addGap(18, 18, 18)
-                        .addComponent(RButton21))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(TCodigoArticulo, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
-                        .addComponent(TDescripcion)
-                        .addComponent(TPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(rButton21))
+                    .addComponent(tPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tDescuento, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
+                    .addComponent(tCodigoArticulo))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(TCodigoArticulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(tCodigoArticulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(TDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(tDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(TPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(tDescuento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(RButton4)
-                    .addComponent(RButton10)
-                    .addComponent(RButton21))
-                .addContainerGap(34, Short.MAX_VALUE))
+                    .addComponent(rButton4)
+                    .addComponent(rButton10)
+                    .addComponent(rButton21))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.MatteBorder(null), "FAMILIAS ARTICULO", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Black", 0, 14))); // NOI18N
@@ -134,7 +161,13 @@ public class AltaArticulo extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         jLabel5.setText("Nombre Familia");
 
-        jButton3.setText("Añadir");
+        bAnadirFamilia.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        bAnadirFamilia.setText("Añadir");
+        bAnadirFamilia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bAnadirFamiliaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -144,9 +177,9 @@ public class AltaArticulo extends javax.swing.JFrame {
                 .addGap(68, 68, 68)
                 .addComponent(jLabel5)
                 .addGap(41, 41, 41)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 147, Short.MAX_VALUE)
-                .addComponent(jButton3)
+                .addComponent(tNombreFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 129, Short.MAX_VALUE)
+                .addComponent(bAnadirFamilia)
                 .addGap(40, 40, 40))
         );
         jPanel3Layout.setVerticalGroup(
@@ -155,12 +188,12 @@ public class AltaArticulo extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3))
+                    .addComponent(tNombreFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bAnadirFamilia))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaFamilias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -171,7 +204,7 @@ public class AltaArticulo extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tablaFamilias);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -180,7 +213,7 @@ public class AltaArticulo extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 639, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -189,16 +222,26 @@ public class AltaArticulo extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
-        jButton1.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        jButton1.setText("Guardar");
+        bGuardar.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        bGuardar.setText("Guardar");
+        bGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bGuardarActionPerformed(evt);
+            }
+        });
 
-        jButton2.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        jButton2.setText("Volver");
+        bVolver.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        bVolver.setText("Volver");
+        bVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bVolverActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -211,9 +254,9 @@ public class AltaArticulo extends javax.swing.JFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(195, 195, 195)
-                        .addComponent(jButton2)))
+                        .addComponent(bGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(194, 194, 194)
+                        .addComponent(bVolver)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -221,45 +264,188 @@ public class AltaArticulo extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(21, 21, 21)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(35, Short.MAX_VALUE))))
+                        .addComponent(bGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(31, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bVolver)
+                        .addContainerGap())))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Acción del botón volver, con el que cerraremos la ventana AltaArticulo
+     * @param evt 
+     */
+    private void bVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVolverActionPerformed
+        // Con this.dispose() cerramos la ventana actual y la dejamos limpia.
+        this.dispose();
+    }//GEN-LAST:event_bVolverActionPerformed
+
+    /**
+     * Acción en la que añadimos una nueva familia al objeto Articulo.
+     * @param evt 
+     */
+    private void bAnadirFamiliaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAnadirFamiliaActionPerformed
+        // Añadimos una familia nueva
+        if(tNombreFamilia.getText().trim().length() == 0){
+            JOptionPane.showMessageDialog(null, "Especifique el nombre de la familia",
+                "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
+            
+            return;
+        }
+        
+        FamiliaArticulo familia = new FamiliaArticulo();
+        familia.setNombre(tNombreFamilia.getText().trim());
+        
+        ArrayList<FamiliaArticulo> listaFamilia = new ArrayList<>();
+        listaFamilia.add(familia);
+        
+        articulo.getListaFamiliaArticulo().addAll(listaFamilia);
+        
+        // Creamos un array auxiliar para poder añadir el elemento a la tabla de articulos.
+        String[] anadirTabla = {familia.getNombre()};   
+        modelo.addRow(anadirTabla);
+        
+        // Dejamos el campo de nuevo vacio.
+        tNombreFamilia.setText("");
+    }//GEN-LAST:event_bAnadirFamiliaActionPerformed
+
+    /**
+     * Acción en la que añadimos un nuevo Articulo a la lista temporal.
+     * se validara que todos los campos esten informados.
+     * @param evt 
+     */
+    private void bGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarActionPerformed
+        if(!validarArticulo()){
+            return;
+        }
+        
+        // Añadimos el Articulo en la lista temporal.
+        Util.crearArticuloEnLista(articulo);
+        
+        JOptionPane.showMessageDialog(null, "Articulo añadido a la lista temporal.",
+        "INFORMACIÓN", JOptionPane.INFORMATION_MESSAGE);
+        
+        // Con this.dispose() cerramos la ventana actual y la dejamos limpia.
+        this.dispose();
+    }//GEN-LAST:event_bGuardarActionPerformed
+
+    /**
+     * Método que valida los datos del formulario, y si estos son validos genera el objeto
+     * que se añadira a la lista temporal.
+     * @return boolean
+     */
+    private boolean validarArticulo(){
+        double precio = 0;
+        double descuento;
+        int iva = 0;
+        
+        // validamos que el codigo no este vacio
+        if(tCodigoArticulo.getText().trim().length() == 0){
+            JOptionPane.showMessageDialog(null, "Debe de rellenar el codigo del articulo",
+                "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        
+        // validamos que el articulo nuevo tenga una descripción.
+        if(tDescripcion.getText().trim().length() == 0){
+            JOptionPane.showMessageDialog(null, "Debe de rellenar la descripción del articulo",
+                "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        
+        // Validamos que el precio este informado y sea numerico.
+        if(tPrecio.getText().trim().length() == 0){
+            JOptionPane.showMessageDialog(null, "Debe de rellenar el precio del articulo",
+                "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }else{
+            try{
+                precio = Double.parseDouble(tPrecio.getText().trim());            
+            }catch(NumberFormatException ex){
+                JOptionPane.showMessageDialog(null, "El precio del articulo debe ser numérico",
+                    "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
+                return false;
+            }
+        }
+        
+        // Validamos que el descuento sea numerico, (No sera obligatorio)
+        if(tDescuento.getText().trim().length() == 0){
+            descuento = 0;
+        }else{
+            try{
+                descuento = Double.parseDouble(tDescuento.getText().trim());            
+            }catch(NumberFormatException ex){
+                JOptionPane.showMessageDialog(null, "El descuento del articulo debe ser numérico",
+                    "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
+                return false;
+            }
+        }
+        
+        // Validamos que alguno de los radio button del IVA este activo
+        if(!rButton4.isSelected() && !rButton10.isSelected() && !rButton21.isSelected()){
+            JOptionPane.showMessageDialog(null,"No selecciono ninguna opción en el IVA.",
+                "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }else{
+            if(rButton4.isSelected()){
+                iva = 4;
+            }else if(rButton10.isSelected()){
+                iva = 10;
+            }else{
+                iva = 21;
+            }
+        }
+        
+        // Validamos que el articulo pertenezca por lo menos a una familia.
+        if(tablaFamilias.getRowCount() == 0){
+            JOptionPane.showMessageDialog(null, "Debe de rellenar por lo menos una familia para el articulo",
+            "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        
+        // Una vez validados los datos creamos el objeto Articulo.
+        articulo.setCodArticulo(tCodigoArticulo.getText().trim());
+        articulo.setDescripcion(tDescripcion.getText().trim());
+        articulo.setPrecio(precio);
+        articulo.setDescuento(descuento);
+        articulo.setIva(iva);
+
+        return true;
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup GrupoRButtonIva;
-    private javax.swing.JRadioButton RButton10;
-    private javax.swing.JRadioButton RButton21;
-    private javax.swing.JRadioButton RButton4;
-    private javax.swing.JTextField TCodigoArticulo;
-    private javax.swing.JTextField TDescripcion;
-    private javax.swing.JTextField TPrecio;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton bAnadirFamilia;
+    private javax.swing.JButton bGuardar;
+    private javax.swing.JButton bVolver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JRadioButton rButton10;
+    private javax.swing.JRadioButton rButton21;
+    private javax.swing.JRadioButton rButton4;
+    private javax.swing.JTextField tCodigoArticulo;
+    private javax.swing.JTextField tDescripcion;
+    private javax.swing.JTextField tDescuento;
+    private javax.swing.JTextField tNombreFamilia;
+    private javax.swing.JTextField tPrecio;
+    private javax.swing.JTable tablaFamilias;
     // End of variables declaration//GEN-END:variables
 }

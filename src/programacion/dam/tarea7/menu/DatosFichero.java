@@ -135,6 +135,11 @@ public class DatosFichero extends javax.swing.JFrame {
 
         BVolver.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         BVolver.setText("Volver");
+        BVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BVolverActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -166,12 +171,21 @@ public class DatosFichero extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void TCodigoBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TCodigoBuscarActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_TCodigoBuscarActionPerformed
 
     private void BModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BModificarActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_BModificarActionPerformed
+
+    /**
+     * Acción del botón volver, con el que cerraremos la ventana Datos Fichero
+     * @param evt 
+     */
+    private void BVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BVolverActionPerformed
+        // Con this.dispose() cerramos la ventana actual y la dejamos limpia.
+        this.dispose();        
+    }//GEN-LAST:event_BVolverActionPerformed
 
 
 
