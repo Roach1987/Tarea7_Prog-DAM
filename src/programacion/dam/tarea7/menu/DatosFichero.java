@@ -101,10 +101,11 @@ public class DatosFichero extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bBuscar)
-                    .addComponent(tCodigoBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tCodigoBuscar, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(bBuscar)))
                 .addGap(26, 26, 26)
                 .addComponent(bListaCompleta)
                 .addContainerGap())
@@ -265,6 +266,9 @@ public class DatosFichero extends javax.swing.JFrame {
                 
         // Borramos de la lista del fichero.
         Util.borrarArticuloFichero(codigoAuxiliar);
+        
+        // Cargamos la lista actualizada.
+        cargarListaFichero();
     }//GEN-LAST:event_bBorrarActionPerformed
  
     /**
