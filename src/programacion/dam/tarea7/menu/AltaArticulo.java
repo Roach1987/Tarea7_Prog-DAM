@@ -317,6 +317,12 @@ public class AltaArticulo extends javax.swing.JFrame {
             return;
         }
         
+        if(existeFamilia(tNombreFamilia.getText().trim())){
+            JOptionPane.showMessageDialog(null, "La familia ya existe en la lista",
+                "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
         FamiliaArticulo familia = new FamiliaArticulo();
         familia.setNombre(tNombreFamilia.getText().trim());
         
@@ -461,7 +467,21 @@ public class AltaArticulo extends javax.swing.JFrame {
 
         return true;
     }
-
+    
+    /**
+     * Método utilitario que comprueba si existe previamente una familia
+     * ya en la tabla.
+     * @param nombre
+     * @return 
+     */
+    private boolean existeFamilia(String nombre){
+        for(FamiliaArticulo familiaAux : articulo.getListaFamiliaArticulo()){
+            if(familiaAux.getNombre().equalsIgnoreCase(nombre)){
+                return true;
+            }
+        }
+        return false;
+    } 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup GrupoRButtonIva;

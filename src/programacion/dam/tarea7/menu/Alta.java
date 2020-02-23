@@ -344,7 +344,7 @@ public class Alta extends javax.swing.JFrame {
         
         String codigoArticulo = tablaArticulos.getValueAt(tablaArticulos.getSelectedRow(), 0).toString().trim();
         
-        ModificarArticulo modificarArticulo = new ModificarArticulo(this, codigoArticulo, "Temporal");
+        ModificarArticulo modificarArticulo = new ModificarArticulo(this, codigoArticulo, "TEMPORAL");
         
         modificarArticulo.setVisible(true);
     }//GEN-LAST:event_bModificarActionPerformed

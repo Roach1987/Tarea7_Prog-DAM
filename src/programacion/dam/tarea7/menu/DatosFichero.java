@@ -6,6 +6,7 @@
 package programacion.dam.tarea7.menu;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import programacion.dam.tarea7.beans.Articulo;
 import programacion.dam.tarea7.util.Util;
@@ -45,8 +46,9 @@ public class DatosFichero extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        tCodigoBuscar = new javax.swing.JTextField();
         bBuscar = new javax.swing.JButton();
+        bListaCompleta = new javax.swing.JButton();
+        tCodigoBuscar = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaArticulos = new javax.swing.JTable();
@@ -62,14 +64,21 @@ public class DatosFichero extends javax.swing.JFrame {
         jLabel1.setText("Codigo Articulo");
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        tCodigoBuscar.addActionListener(new java.awt.event.ActionListener() {
+        bBuscar.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        bBuscar.setText("Buscar");
+        bBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tCodigoBuscarActionPerformed(evt);
+                bBuscarActionPerformed(evt);
             }
         });
 
-        bBuscar.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        bBuscar.setText("Buscar");
+        bListaCompleta.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        bListaCompleta.setText("Lista Completa");
+        bListaCompleta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bListaCompletaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -78,11 +87,15 @@ public class DatosFichero extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(jLabel1)
-                .addGap(29, 29, 29)
-                .addComponent(tCodigoBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
+                .addGap(42, 42, 42)
+                .addComponent(tCodigoBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(bBuscar)
                 .addGap(108, 108, 108))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(209, 209, 209)
+                .addComponent(bListaCompleta)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -90,9 +103,11 @@ public class DatosFichero extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tCodigoBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bBuscar))
-                .addContainerGap(19, Short.MAX_VALUE))
+                    .addComponent(bBuscar)
+                    .addComponent(tCodigoBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE))
+                .addGap(26, 26, 26)
+                .addComponent(bListaCompleta)
+                .addContainerGap())
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.MatteBorder(null), "ARTICULOS", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Black", 0, 14))); // NOI18N
@@ -121,6 +136,11 @@ public class DatosFichero extends javax.swing.JFrame {
 
         bBorrar.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         bBorrar.setText("Borrar");
+        bBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bBorrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -175,8 +195,8 @@ public class DatosFichero extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(33, 33, 33)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50)
                 .addComponent(BVolver)
@@ -186,12 +206,24 @@ public class DatosFichero extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tCodigoBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tCodigoBuscarActionPerformed
-        
-    }//GEN-LAST:event_tCodigoBuscarActionPerformed
-
+    
+    
+    /**
+     * Acción que enlaza con la ventana modificar articulo.
+     * @param evt 
+     */
     private void bModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModificarActionPerformed
+        if(tablaArticulos.getSelectedRow() == -1){
+            JOptionPane.showMessageDialog(null, "Debe de seleccionar un articulo para modificar.",
+                "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         
+        String codigoArticulo = tablaArticulos.getValueAt(tablaArticulos.getSelectedRow(), 0).toString().trim();
+        
+        ModificarArticulo modificarArticulo = new ModificarArticulo(this, codigoArticulo, "FICHERO");
+        
+        modificarArticulo.setVisible(true);
     }//GEN-LAST:event_bModificarActionPerformed
 
     /**
@@ -202,6 +234,68 @@ public class DatosFichero extends javax.swing.JFrame {
         // Con this.dispose() cerramos la ventana actual y la dejamos limpia.
         this.dispose();        
     }//GEN-LAST:event_BVolverActionPerformed
+
+    /**
+     * Acción que muestra la lista de articulos del fichero completa
+     * @param evt 
+     */
+    private void bListaCompletaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bListaCompletaActionPerformed
+        borrarTabla();   
+        cargarListaFichero(); 
+    }//GEN-LAST:event_bListaCompletaActionPerformed
+
+    /**
+     * Acción que borra el articulo del fichero.
+     * @param evt 
+     */
+    private void bBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBorrarActionPerformed
+        // Verificamos que se ha seleccionado un articulo para borrarlo de la lista del fichero
+        // y la tabla.
+        if(tablaArticulos.getSelectedRow() == -1){
+            JOptionPane.showMessageDialog(null, "Debe de seleccionar un articulo para borrar",
+                "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+                // Recogemos el codigo del articulo seleccionado.
+        String codigoAuxiliar = tablaArticulos.getValueAt(tablaArticulos.getSelectedRow(), 0).toString().trim();
+                
+        // Borramos de la tabla
+        modelo.removeRow(tablaArticulos.getSelectedRow());
+                
+        // Borramos de la lista del fichero.
+        Util.borrarArticuloFichero(codigoAuxiliar);
+    }//GEN-LAST:event_bBorrarActionPerformed
+ 
+    /**
+     * Acción que filtra los articulos de la tabla y pinta el articulo coincidente con
+     * el codigo pasado.
+     * @param evt 
+     */
+    private void bBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarActionPerformed
+        if(tCodigoBuscar.getText().trim().length() == 0){
+            JOptionPane.showMessageDialog(null, "Debe de insertar el codigo del articulo a buscar.",
+                "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        String codigoAux = tCodigoBuscar.getText().trim();
+        
+        // Buscamos el articulo en la lista temporal
+        Articulo articulo = Util.buscarArticuloPorCodigo(codigoAux, Util.listaArticulos);
+        
+        if(null == articulo){
+            JOptionPane.showMessageDialog(null, "El codigo introducido no corresponde a ningun articulo.",
+                "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
+        }else{
+            // Borramos los articulos que estuviesen en la tabla.
+            borrarTabla();
+            
+            String [] fila = {articulo.getCodArticulo(), articulo.getDescripcion(), articulo.getPrecio().toString().concat(" Euros"),
+                                    articulo.getDescuento().toString().concat(" Euros"), articulo.getIva().toString().concat("%")};
+            modelo.addRow(fila);
+        }
+    }//GEN-LAST:event_bBuscarActionPerformed
 
 // ***************************************************************************************************
 // ************************************ Utilidades de la Clase ***************************************
@@ -246,6 +340,7 @@ public class DatosFichero extends javax.swing.JFrame {
     private javax.swing.JButton BVolver;
     private javax.swing.JButton bBorrar;
     private javax.swing.JButton bBuscar;
+    private javax.swing.JButton bListaCompleta;
     private javax.swing.JButton bModificar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
