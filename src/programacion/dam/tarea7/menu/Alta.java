@@ -34,7 +34,6 @@ public class Alta extends javax.swing.JFrame {
         this.cargarListaTemporal();
     }
     
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -46,9 +45,9 @@ public class Alta extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        tCodigoBuscar = new javax.swing.JTextField();
         bBuscar = new javax.swing.JButton();
         bVerLista = new javax.swing.JButton();
+        tCodigoBuscar = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaArticulos = new javax.swing.JTable();
@@ -65,12 +64,6 @@ public class Alta extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         jLabel1.setText("Codigo Articulo");
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
-        tCodigoBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tCodigoBuscarActionPerformed(evt);
-            }
-        });
 
         bBuscar.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         bBuscar.setText("Buscar");
@@ -95,13 +88,13 @@ public class Alta extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(jLabel1)
-                .addGap(29, 29, 29)
-                .addComponent(tCodigoBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
+                .addGap(37, 37, 37)
+                .addComponent(tCodigoBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(bBuscar)
                 .addGap(108, 108, 108))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(219, Short.MAX_VALUE)
                 .addComponent(bVerLista)
                 .addGap(211, 211, 211))
         );
@@ -111,11 +104,11 @@ public class Alta extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tCodigoBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bBuscar))
+                    .addComponent(bBuscar)
+                    .addComponent(tCodigoBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(bVerLista)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addGap(16, 16, 16))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.MatteBorder(null), "ARTICULOS", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Black", 0, 14))); // NOI18N
@@ -136,6 +129,11 @@ public class Alta extends javax.swing.JFrame {
         bModificar.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         bModificar.setText("Modificar");
         bModificar.setToolTipText("");
+        bModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bModificarActionPerformed(evt);
+            }
+        });
 
         bBorrar.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         bBorrar.setText("Borrar");
@@ -235,10 +233,6 @@ public class Alta extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tCodigoBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tCodigoBuscarActionPerformed
-
-    }//GEN-LAST:event_tCodigoBuscarActionPerformed
-
     
     /**
      * Acción del botón Alta Articulo, abriremos la ventana que dispone de los campos 
@@ -250,12 +244,18 @@ public class Alta extends javax.swing.JFrame {
         AltaArticulo altaNuevoArticulo = new AltaArticulo(this);
         altaNuevoArticulo.setVisible(true);
     }//GEN-LAST:event_bNuevoArticuloActionPerformed
-
     
-    
-    
+    /**
+     * Acción que guarda los articulos de la lista temporal en el fichero.
+     * @param evt 
+     */
     private void bGuardarEnFicheroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarEnFicheroActionPerformed
-    
+        Util.anadirArticulosFichero();
+        
+        JOptionPane.showMessageDialog(null, "Se ha añadido la lista temporal al fichero.",
+        "INFORMACIÓN", JOptionPane.INFORMATION_MESSAGE);
+        
+        cargarListaTemporal();
     }//GEN-LAST:event_bGuardarEnFicheroActionPerformed
 
     /**
@@ -267,7 +267,6 @@ public class Alta extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_bVolverActionPerformed
 
-    
     /**
      * Acción de borrar un articulo de la lista temporal.
      * @param evt 
@@ -291,8 +290,6 @@ public class Alta extends javax.swing.JFrame {
         Util.borrarArticuloDeLista(codigoAuxiliar);
     }//GEN-LAST:event_bBorrarActionPerformed
 
-    
-    
     /**
      * Acción de buscar un articulo por su codigo
      * @param evt 
@@ -323,7 +320,6 @@ public class Alta extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_bBuscarActionPerformed
 
-    
     /**
      * Acción que mostrara toda la lista temporal.
      * Para evitar que se quede solo un articulo cuando se utiliza la opción
@@ -334,6 +330,24 @@ public class Alta extends javax.swing.JFrame {
         borrarTabla();   
         cargarListaTemporal();       
     }//GEN-LAST:event_bVerListaActionPerformed
+
+    /**
+     * Acción que enlaza con la ventana modificar articulo.
+     * @param evt 
+     */
+    private void bModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModificarActionPerformed
+        if(tablaArticulos.getSelectedRow() == -1){
+            JOptionPane.showMessageDialog(null, "Debe de seleccionar un articulo para modificar.",
+                "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        String codigoArticulo = tablaArticulos.getValueAt(tablaArticulos.getSelectedRow(), 0).toString().trim();
+        
+        ModificarArticulo modificarArticulo = new ModificarArticulo(this, codigoArticulo, "Temporal");
+        
+        modificarArticulo.setVisible(true);
+    }//GEN-LAST:event_bModificarActionPerformed
 
 // ***************************************************************************************************
 // ************************************ Utilidades de la Clase ***************************************

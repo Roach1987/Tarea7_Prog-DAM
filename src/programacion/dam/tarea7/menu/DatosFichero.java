@@ -5,17 +5,33 @@
  */
 package programacion.dam.tarea7.menu;
 
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+import programacion.dam.tarea7.beans.Articulo;
+import programacion.dam.tarea7.util.Util;
+
 /**
  *
- * @author Roach_Mimi
+ * @author Roach
  */
 public class DatosFichero extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Datos
-     */
+    // Atributos
+    private DefaultTableModel modelo;
+    
+    
+    // Constructores
     public DatosFichero() {
         initComponents();
+        
+                // Pintamos los atributos mas importantes de los articulos.
+        String[] columnas = {"Codigo", "Descripción", "Precio", "Descuento", "IVA"};
+        modelo = new DefaultTableModel(null, columnas);
+        
+        tablaArticulos.setModel(modelo);
+        
+        // Cargamos la lista de articulos temporal.
+        this.cargarListaFichero();
     }
 
     /**
@@ -29,13 +45,13 @@ public class DatosFichero extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        TCodigoBuscar = new javax.swing.JTextField();
-        BBuscar = new javax.swing.JButton();
+        tCodigoBuscar = new javax.swing.JTextField();
+        bBuscar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        TablaArticulos = new javax.swing.JTable();
-        BModificar = new javax.swing.JButton();
-        BBorrar = new javax.swing.JButton();
+        tablaArticulos = new javax.swing.JTable();
+        bModificar = new javax.swing.JButton();
+        bBorrar = new javax.swing.JButton();
         BVolver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -46,14 +62,14 @@ public class DatosFichero extends javax.swing.JFrame {
         jLabel1.setText("Codigo Articulo");
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        TCodigoBuscar.addActionListener(new java.awt.event.ActionListener() {
+        tCodigoBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TCodigoBuscarActionPerformed(evt);
+                tCodigoBuscarActionPerformed(evt);
             }
         });
 
-        BBuscar.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        BBuscar.setText("Buscar");
+        bBuscar.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        bBuscar.setText("Buscar");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -63,9 +79,9 @@ public class DatosFichero extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addComponent(jLabel1)
                 .addGap(29, 29, 29)
-                .addComponent(TCodigoBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tCodigoBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
-                .addComponent(BBuscar)
+                .addComponent(bBuscar)
                 .addGap(108, 108, 108))
         );
         jPanel1Layout.setVerticalGroup(
@@ -74,14 +90,14 @@ public class DatosFichero extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TCodigoBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BBuscar))
+                    .addComponent(tCodigoBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bBuscar))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.MatteBorder(null), "ARTICULOS", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Black", 0, 14))); // NOI18N
 
-        TablaArticulos.setModel(new javax.swing.table.DefaultTableModel(
+        tablaArticulos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -92,19 +108,19 @@ public class DatosFichero extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(TablaArticulos);
+        jScrollPane1.setViewportView(tablaArticulos);
 
-        BModificar.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        BModificar.setText("Modificar");
-        BModificar.setToolTipText("");
-        BModificar.addActionListener(new java.awt.event.ActionListener() {
+        bModificar.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        bModificar.setText("Modificar");
+        bModificar.setToolTipText("");
+        bModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BModificarActionPerformed(evt);
+                bModificarActionPerformed(evt);
             }
         });
 
-        BBorrar.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        BBorrar.setText("Borrar");
+        bBorrar.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        bBorrar.setText("Borrar");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -116,9 +132,9 @@ public class DatosFichero extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(BModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(bModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(BBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(bBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(127, 127, 127))
         );
         jPanel2Layout.setVerticalGroup(
@@ -128,8 +144,8 @@ public class DatosFichero extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(bBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(39, Short.MAX_VALUE))
         );
 
@@ -170,13 +186,13 @@ public class DatosFichero extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void TCodigoBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TCodigoBuscarActionPerformed
+    private void tCodigoBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tCodigoBuscarActionPerformed
         
-    }//GEN-LAST:event_TCodigoBuscarActionPerformed
+    }//GEN-LAST:event_tCodigoBuscarActionPerformed
 
-    private void BModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BModificarActionPerformed
+    private void bModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModificarActionPerformed
         
-    }//GEN-LAST:event_BModificarActionPerformed
+    }//GEN-LAST:event_bModificarActionPerformed
 
     /**
      * Acción del botón volver, con el que cerraremos la ventana Datos Fichero
@@ -187,18 +203,55 @@ public class DatosFichero extends javax.swing.JFrame {
         this.dispose();        
     }//GEN-LAST:event_BVolverActionPerformed
 
-
+// ***************************************************************************************************
+// ************************************ Utilidades de la Clase ***************************************
+// ***************************************************************************************************
+    
+    /**
+     * Método auxiliar que limpia la tabla.
+     */
+    private void borrarTabla(){
+        int longitud = tablaArticulos.getRowCount()-1;  
+        for(int i = longitud; i >= 0; i--){
+            modelo.removeRow(i);
+        }
+    }
+    
+    /**
+     * Método que carga los articulos que se encuentran en la lista temporal,
+     * y recoge los datos mas importantes para cargarlos en la tabla.
+     */
+    public void cargarListaFichero(){
+        // Liampiamos la tabla al cargar nuevos articulos, para evitar duplicidades.
+        borrarTabla();
+        
+        ArrayList<Articulo> listaFichero = Util.listarArticulosFichero();
+        
+        for(Articulo articulo : listaFichero){
+            // Creamos un array para recoger los datos necesarios de cada articulo.
+           String [] fila = {articulo.getCodArticulo(), articulo.getDescripcion(), articulo.getPrecio().toString().concat(" Euros"),
+                                    articulo.getDescuento().toString().concat(" Euros"), articulo.getIva().toString().concat("%")};
+            
+            // Añadimos a la tabla los datos del articulo actual.
+            modelo.addRow(fila);
+        }
+    }
+    
+    
+    
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BBorrar;
-    private javax.swing.JButton BBuscar;
-    private javax.swing.JButton BModificar;
     private javax.swing.JButton BVolver;
-    private javax.swing.JTextField TCodigoBuscar;
-    private javax.swing.JTable TablaArticulos;
+    private javax.swing.JButton bBorrar;
+    private javax.swing.JButton bBuscar;
+    private javax.swing.JButton bModificar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField tCodigoBuscar;
+    private javax.swing.JTable tablaArticulos;
     // End of variables declaration//GEN-END:variables
 }

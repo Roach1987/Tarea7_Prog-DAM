@@ -27,6 +27,7 @@ public class Util implements Serializable{
     
 // *******************************************************************************************************    
 // *********************************** CRUD Lista Articulos **********************************************
+// ******************************************************************************************************* 
     
     /**
      * Método que crea un articulo en la lista, si este no existe previamente.
@@ -76,16 +77,18 @@ public class Util implements Serializable{
      */
     public static void actualizarArticuloEnLista(Articulo articulo){
         // UPDATE
-        if(null != articulo && (null != listaArticulosTemporal && !listaArticulosTemporal.isEmpty())){
+        if(null != articulo){
             if(null != articulo.getCodArticulo()){
                 String codigoArticuloBuscar = articulo.getCodArticulo();
                 Articulo articuloEncontrado = buscarArticuloPorCodigo(codigoArticuloBuscar, listaArticulosTemporal);
             
                 if(null != articuloEncontrado){
-                    // Si existe un articulo con el mismo codigo que el articulo llegado por parametro
-                    // se borra y se guarda el nuevo, seteando los atributos del objeto con los llegados por parametro.
+                    if(null != articulo.getCodArticulo()){
+                        articuloEncontrado.setCodArticulo(articulo.getCodArticulo());
+                    }
+                                        
                     if(null != articulo.getDescripcion()){
-                        articuloEncontrado.setCodArticulo(articulo.getDescripcion());
+                        articuloEncontrado.setDescripcion(articulo.getDescripcion());
                     }
 
                     if(null != articulo.getPrecio()){
@@ -143,8 +146,8 @@ public class Util implements Serializable{
     /**
      * Método que añade los articulos que se encuentran el la lista temporal.
      */
-    public static void addArticuloFichero(){
-        // UPDATE
+    public static void anadirArticulosFichero(){
+        // ADD
         try {
             // Intentamos crear el fichero y su objeto dentro de un try pasando por parametro 
             // estos dos Streams sin catch, si falla por estar vacio no lanzara ninguna excepcion y añadira
@@ -234,6 +237,80 @@ public class Util implements Serializable{
                     "ERROR", JOptionPane.ERROR_MESSAGE);
         }
         return listaArticulos;
+    }
+    
+    /**
+     * Método que actualiza un articulo en el fichero.
+     * @param articulo
+     */
+    public static void actualizarArticuloFichero(Articulo articulo){
+        // UPDATE
+        try {
+            // Intentamos crear el fichero y su objeto dentro de un try pasando por parametro 
+            // estos dos Streams sin catch, si falla por estar vacio no lanzara ninguna excepcion y añadira
+            // los articulos con el objeto ObjectOutputStream
+            // "try con autocierre de Streams"
+            try (
+                // lee la informacion del archivo.
+                FileInputStream ficheroEntrada = new FileInputStream(ARCHIVO_ARTICULOS);
+                    
+                // traduce la infromacion del archivo en datos
+                ObjectInputStream objetoEntrada = new ObjectInputStream(ficheroEntrada) 
+            ) {
+                // lee todos los objetos que esten en el array
+                listaArticulos = (ArrayList<Articulo>) objetoEntrada.readObject();
+            }
+        } catch (IOException | ClassNotFoundException ex) {
+            System.out.println("El fichero esta vacío");
+        }
+        
+        Articulo articuloEncontrado = buscarArticuloPorCodigo(articulo.getCodArticulo(), listaArticulos);
+        
+        if(null != articuloEncontrado){
+            if(null != articulo.getCodArticulo()){
+                articuloEncontrado.setCodArticulo(articulo.getCodArticulo());
+            }
+                        
+            if(null != articulo.getDescripcion()){
+                articuloEncontrado.setDescripcion(articulo.getDescripcion());
+            }
+
+            if(null != articulo.getPrecio()){
+                articuloEncontrado.setPrecio(articulo.getPrecio());
+            }
+
+            if(null != articulo.getDescuento()){
+                articuloEncontrado.setDescuento(articulo.getDescuento());
+            }
+
+            if(null != articulo.getIva()){
+                articuloEncontrado.setIva(articulo.getIva());
+            }
+
+            if(null != articulo.getListaFamiliaArticulo() && !articulo.getListaFamiliaArticulo().isEmpty()){
+                articuloEncontrado.setListaFamiliaArticulo(articulo.getListaFamiliaArticulo());
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "No existe un articulo con codigo ".concat(articulo.getCodArticulo()),
+            "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
+        }
+        
+        ObjectOutputStream objetoSalida;
+        // Se crea el flujo para poder escribir en "articulos.dat"
+        try (FileOutputStream ficheroSalida = new FileOutputStream(ARCHIVO_ARTICULOS)) {
+            
+            // prepara la forma de escritura para "articulos.dat" que en este caso sera escribir un objeto
+            objetoSalida = new ObjectOutputStream(ficheroSalida);
+            
+            // Escribe en el archivo el Array de objetos "listaArticulos"
+            objetoSalida.writeObject(listaArticulos);
+            
+            // Cerramos el objeto de salida.
+            objetoSalida.close();
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Error en el fichero ".concat(ex.getMessage()),
+                    "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
 // *******************************************************************************************************

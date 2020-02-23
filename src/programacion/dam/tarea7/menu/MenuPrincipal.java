@@ -28,10 +28,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        BSalir = new javax.swing.JButton();
+        bSalir = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        BADatosFichero = new javax.swing.JButton();
-        BAAlta = new javax.swing.JButton();
+        bADatosFichero = new javax.swing.JButton();
+        bAAlta = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
@@ -48,11 +48,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        BSalir.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        BSalir.setText("Salir");
-        BSalir.addActionListener(new java.awt.event.ActionListener() {
+        bSalir.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        bSalir.setText("Salir");
+        bSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BSalirActionPerformed(evt);
+                bSalirActionPerformed(evt);
             }
         });
 
@@ -69,21 +69,21 @@ public class MenuPrincipal extends javax.swing.JFrame {
             .addGap(0, 295, Short.MAX_VALUE)
         );
 
-        BADatosFichero.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        BADatosFichero.setIcon(new javax.swing.ImageIcon(getClass().getResource("/programacion/dam/tarea7/images/IconoDatosFichero.png"))); // NOI18N
-        BADatosFichero.addActionListener(new java.awt.event.ActionListener() {
+        bADatosFichero.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        bADatosFichero.setIcon(new javax.swing.ImageIcon(getClass().getResource("/programacion/dam/tarea7/images/IconoDatosFichero.png"))); // NOI18N
+        bADatosFichero.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BADatosFicheroActionPerformed(evt);
+                bADatosFicheroActionPerformed(evt);
             }
         });
 
-        BAAlta.setBackground(new java.awt.Color(255, 255, 255));
-        BAAlta.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        BAAlta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/programacion/dam/tarea7/images/IconoAlta.png"))); // NOI18N
-        BAAlta.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        BAAlta.addActionListener(new java.awt.event.ActionListener() {
+        bAAlta.setBackground(new java.awt.Color(255, 255, 255));
+        bAAlta.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        bAAlta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/programacion/dam/tarea7/images/IconoAlta.png"))); // NOI18N
+        bAAlta.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        bAAlta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BAAltaActionPerformed(evt);
+                bAAltaActionPerformed(evt);
             }
         });
 
@@ -103,14 +103,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(113, 113, 113)
-                        .addComponent(BADatosFichero)
+                        .addComponent(bADatosFichero)
                         .addGap(64, 64, 64)
-                        .addComponent(BAAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(bAAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 141, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(BSalir, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(bSalir, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addGap(147, 147, 147)
@@ -126,12 +126,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(BSalir)
+                        .addComponent(bSalir)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(BADatosFichero, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(BAAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(bADatosFichero, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(bAAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
@@ -139,7 +139,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                         .addGap(46, 46, 46))))
         );
 
-        BAAlta.getAccessibleContext().setAccessibleDescription("");
+        bAAlta.getAccessibleContext().setAccessibleDescription("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -150,30 +150,30 @@ public class MenuPrincipal extends javax.swing.JFrame {
      * hasta que se seleccione la opción de guardar en fichero.
      * @param evt 
      */
-    private void BAAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BAAltaActionPerformed
+    private void bAAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAAltaActionPerformed
         // Creamos una nueva ventana Alta y la habilitamos para poder trabajar en ella.
         Alta altaTemporal = new Alta();
         altaTemporal.setVisible(true);
-    }//GEN-LAST:event_BAAltaActionPerformed
+    }//GEN-LAST:event_bAAltaActionPerformed
 
     /**
      * Acción del botón Salir del menú pricipal.
      * @param evt 
      */
-    private void BSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BSalirActionPerformed
+    private void bSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSalirActionPerformed
         System.exit(0);
-    }//GEN-LAST:event_BSalirActionPerformed
+    }//GEN-LAST:event_bSalirActionPerformed
 
     /**
      * Acción del boton Datos, con esto abrira la ventana en la que se van a
      * Manipular los datos del fichero
      * @param evt 
      */ 
-    private void BADatosFicheroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BADatosFicheroActionPerformed
+    private void bADatosFicheroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bADatosFicheroActionPerformed
         // Creamos una nueva ventana Datos Fichero y la habilitamos para poder trabajar en ella.
         DatosFichero datosFichero = new DatosFichero();
         datosFichero.setVisible(true);
-    }//GEN-LAST:event_BADatosFicheroActionPerformed
+    }//GEN-LAST:event_bADatosFicheroActionPerformed
 
     /**
      * @param args the command line arguments
@@ -211,9 +211,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BAAlta;
-    private javax.swing.JButton BADatosFichero;
-    private javax.swing.JButton BSalir;
+    private javax.swing.JButton bAAlta;
+    private javax.swing.JButton bADatosFichero;
+    private javax.swing.JButton bSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

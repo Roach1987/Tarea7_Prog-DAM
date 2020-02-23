@@ -73,9 +73,9 @@
                   <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                  <Component id="TCodigoBuscar" min="-2" pref="114" max="-2" attributes="0"/>
+                  <Component id="tCodigoBuscar" min="-2" pref="114" max="-2" attributes="0"/>
                   <EmptySpace pref="101" max="32767" attributes="0"/>
-                  <Component id="BBuscar" min="-2" max="-2" attributes="0"/>
+                  <Component id="bBuscar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="108" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -86,8 +86,8 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel1" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
-                      <Component id="TCodigoBuscar" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
-                      <Component id="BBuscar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="tCodigoBuscar" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                      <Component id="bBuscar" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="19" max="32767" attributes="0"/>
               </Group>
@@ -104,12 +104,12 @@
             <Property name="horizontalTextPosition" type="int" value="0"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="TCodigoBuscar">
+        <Component class="javax.swing.JTextField" name="tCodigoBuscar">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TCodigoBuscarActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tCodigoBuscarActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="BBuscar">
+        <Component class="javax.swing.JButton" name="bBuscar">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial Black" size="14" style="0"/>
@@ -143,9 +143,9 @@
               </Group>
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
-                  <Component id="BModificar" min="-2" pref="150" max="-2" attributes="0"/>
+                  <Component id="bModificar" min="-2" pref="150" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="BBorrar" min="-2" pref="150" max="-2" attributes="0"/>
+                  <Component id="bBorrar" min="-2" pref="150" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="127" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -157,8 +157,8 @@
                   <Component id="jScrollPane1" min="-2" pref="134" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="BBorrar" alignment="3" min="-2" pref="54" max="-2" attributes="0"/>
-                      <Component id="BModificar" alignment="3" min="-2" pref="54" max="-2" attributes="0"/>
+                      <Component id="bBorrar" alignment="3" min="-2" pref="54" max="-2" attributes="0"/>
+                      <Component id="bModificar" alignment="3" min="-2" pref="54" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="39" max="32767" attributes="0"/>
               </Group>
@@ -173,7 +173,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="TablaArticulos">
+            <Component class="javax.swing.JTable" name="tablaArticulos">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="4" rowCount="4">
@@ -187,7 +187,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JButton" name="BModificar">
+        <Component class="javax.swing.JButton" name="bModificar">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial Black" size="14" style="0"/>
@@ -196,10 +196,10 @@
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BModificarActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bModificarActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="BBorrar">
+        <Component class="javax.swing.JButton" name="bBorrar">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial Black" size="14" style="0"/>
